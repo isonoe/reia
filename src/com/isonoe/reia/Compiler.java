@@ -47,7 +47,7 @@ public class Compiler
 
         try
         {
-            source = new BufferedReader(new FileReader(new File("E:\\Documentos\\GoogleDrive\\Documentos\\Projetos\\reia\\src\\com\\isonoe\\reia\\exercicio.txt")));
+            source = new BufferedReader(new FileReader(new File("E:\\Documentos\\GoogleDrive\\Documentos\\Projetos\\reia\\src\\com\\isonoe\\reia\\assets\\data\\exercicio.txt")));
         }
         catch (final Exception exception)
         {
