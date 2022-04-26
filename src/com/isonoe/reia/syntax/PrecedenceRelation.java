@@ -1,4 +1,4 @@
-package com.isonoe.reia.semantic;
+package com.isonoe.reia.syntax;
 
 import lombok.Getter;
 

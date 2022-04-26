@@ -18,7 +18,7 @@ package com.isonoe.reia;
 
 import com.isonoe.reia.lexical.LexicalAnalysis;
 import com.isonoe.reia.lexical.Token;
-import com.isonoe.reia.semantic.SyntaxAnalysis;
+import com.isonoe.reia.syntax.SyntaxAnalysis;
 
 import java.io.BufferedReader;
 import java.io.File;

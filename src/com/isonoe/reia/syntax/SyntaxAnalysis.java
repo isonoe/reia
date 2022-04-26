@@ -1,4 +1,4 @@
-package com.isonoe.reia.semantic;
+package com.isonoe.reia.syntax;
 
 import com.isonoe.reia.lexical.LexicalAnalysis;
 import com.isonoe.reia.lexical.Symbol;
@@ -6,7 +6,6 @@ import com.isonoe.reia.lexical.Token;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class SyntaxAnalysis {
     LexicalAnalysis lexical;
@@ -57,7 +56,7 @@ public class SyntaxAnalysis {
         checkIdLinha(linha.get(0));
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao 100 input n");
+            throw new Exception("Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
         }
 
         checkVariavel(linha.get(2));
