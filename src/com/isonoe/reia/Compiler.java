@@ -18,6 +18,7 @@ package com.isonoe.reia;
 
 import com.isonoe.reia.lexical.LexicalAnalysis;
 import com.isonoe.reia.lexical.Token;
+import com.isonoe.reia.semantic.SyntaxAnalysis;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,8 +35,7 @@ public class Compiler
      *
      * @param args argumentos da linha de comando (nao utilizado)
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws Exception {
 //        if (args.length != 1)
 //        {
 //            System.err.println("Por favor, informe o arquivo a ser compilado!");
@@ -69,6 +69,9 @@ public class Compiler
             {
                 System.out.println(token);
             }
+
+            SyntaxAnalysis syntaxAnalysis = new SyntaxAnalysis(lexical);
+            syntaxAnalysis.start();
         }
 
         System.out.println("Fim da análise léxica");
