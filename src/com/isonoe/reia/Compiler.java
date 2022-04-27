@@ -47,7 +47,7 @@ public class Compiler
 
         try
         {
-            source = new BufferedReader(new FileReader(new File("E:\\Documentos\\GoogleDrive\\Documentos\\Projetos\\reia\\src\\com\\isonoe\\reia\\assets\\data\\exercicio.txt")));
+            source = new BufferedReader(new FileReader(new File("/Users/alrightadtech/IdeaProjects/reia/src/com/isonoe/reia/assets/data/exercicio.txt")));
         }
         catch (final Exception exception)
         {
@@ -70,10 +70,16 @@ public class Compiler
                 System.out.println(token);
             }
 
+            System.out.println("Fim da análise léxica");
+
+            System.out.println("Início da análise sintática");
+
             SyntaxAnalysis syntaxAnalysis = new SyntaxAnalysis(lexical);
             syntaxAnalysis.start();
+
+            System.out.println("Fim da análise sintática");
         }
 
-        System.out.println("Fim da análise léxica");
+
     }
 }
