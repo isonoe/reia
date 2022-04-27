@@ -31,7 +31,7 @@ public class SyntaxAnalysis {
                 linha.add(token);
             }
 
-            System.out.println(token);
+            // System.out.println(token);
         }
 
         if (linha.size() > 0) {
@@ -47,15 +47,15 @@ public class SyntaxAnalysis {
 
             if (fnToken.getType() == Symbol.INPUT) {
                 this.funcInput(novalinha);
-            }else if(fnToken.getType() == Symbol.LET){
+            } else if (fnToken.getType() == Symbol.LET) {
                 this.funcLet(novalinha);
-            }else if(fnToken.getType() == Symbol.PRINT){
+            } else if (fnToken.getType() == Symbol.PRINT) {
                 this.funcPrint(novalinha);
-            }else if(fnToken.getType() == Symbol.GOTO){
+            } else if (fnToken.getType() == Symbol.GOTO) {
                 this.funcGoto(novalinha);
-            }else if(fnToken.getType() == Symbol.IF){
+            } else if (fnToken.getType() == Symbol.IF) {
                 this.funcIf(novalinha);
-            }else if(fnToken.getType() == Symbol.END){
+            } else if (fnToken.getType() == Symbol.END) {
                 this.funcEnd(novalinha);
             }
 
@@ -66,15 +66,19 @@ public class SyntaxAnalysis {
     public void funcEnd(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao end mal formatada: linha " + linha.get(0).getLine() + ". padrao: <endereco> end");
+            throw new Exception(
+                    "Instrucao end mal formatada: linha " + linha.get(0).getLine() + ". padrao: <endereco> end");
         }
+
+        checkETX(linha.get(2));
 
     }
 
     public void funcInput(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+            throw new Exception(
+                    "Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
         }
 
         checkVariavel(linha.get(2));
@@ -83,7 +87,8 @@ public class SyntaxAnalysis {
     public void funcGoto(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Go To mal formatada: linha " + linha.get(0).getLine() + ". padrao: goto <endereco>");
+            throw new Exception(
+                    "Instrucao Go To mal formatada: linha " + linha.get(0).getLine() + ". padrao: goto <endereco>");
         }
 
         checkCte(linha.get(2));
@@ -92,7 +97,8 @@ public class SyntaxAnalysis {
     public void funcPrint(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Print mal formatada: linha " + linha.get(0).getLine() + ". padrao: print <variable>");
+            throw new Exception(
+                    "Instrucao Print mal formatada: linha " + linha.get(0).getLine() + ". padrao: print <variable>");
         }
 
         checkVariavel(linha.get(2));
@@ -101,7 +107,8 @@ public class SyntaxAnalysis {
     public void funcIf(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 7) {
-            throw new Exception("Instrucao If mal formatada: linha " + linha.get(0).getLine() + ". padrao: if expressao_boleana goto <endereco>");
+            throw new Exception("Instrucao If mal formatada: linha " + linha.get(0).getLine()
+                    + ". padrao: if expressao_boleana goto <endereco>");
         }
 
         checkVariavelOuCte(linha.get(2));
@@ -115,18 +122,25 @@ public class SyntaxAnalysis {
     public void funcLet(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() < 5 || linha.size() > 7) {
-            throw new Exception("Instrucao Let mal formatada: linha " + linha.get(0).getLine() + ". padrao: let <variable> = valor | expressao aritimetica");
+            throw new Exception("Instrucao Let mal formatada: linha " + linha.get(0).getLine()
+                    + ". padrao: let <variable> = valor | expressao aritimetica");
         }
 
         checkVariavel(linha.get(2));
         checkAtribuicao(linha.get(3));
 
-        if(linha.size() == 5){
+        if (linha.size() == 5) {
             this.checkVariavelOuCte(linha.get(4));
-        }else if(linha.size() == 6){
-            this.checkNegativeNumber(linha.get(4),linha.get(5));
-        }else if(linha.size() == 7){
-            this.checkAritmeticExpression(linha.get(4),linha.get(5),linha.get(6));
+        } else if (linha.size() == 6) {
+            this.checkNegativeNumber(linha.get(4), linha.get(5));
+        } else if (linha.size() == 7) {
+            this.checkAritmeticExpression(linha.get(4), linha.get(5), linha.get(6));
+        }
+    }
+
+    public void checkETX(Token token) throws Exception {
+        if (token.getType() != Symbol.ETX) {
+            throw new Exception("A instrucao end não tem nenhum parametro, apenas fim do arquivo: " + token);
         }
     }
 
@@ -160,50 +174,50 @@ public class SyntaxAnalysis {
         }
     }
 
-    public void checkAritmeticExpression(Token token,Token token2,Token token3) throws Exception {
+    public void checkAritmeticExpression(Token token, Token token2, Token token3) throws Exception {
         this.checkVariavelOuCte(token);
         this.checkAritmeticOperator(token2);
         this.checkVariavelOuCte(token3);
-        this.checkDivideZero(token2,token3);
+        this.checkDivideZero(token2, token3);
     }
 
-    public void checkAritmeticOperator(Token token) throws Exception{
+    public void checkAritmeticOperator(Token token) throws Exception {
         ArrayList<Symbol> operators = new ArrayList<>(Arrays.asList(
                 Symbol.ADD,
                 Symbol.SUBTRACT,
                 Symbol.MULTIPLY,
                 Symbol.DIVIDE,
-                Symbol.MODULO
-        ));
+                Symbol.MODULO));
 
         if (!operators.contains(token.getType())) {
             throw new Exception("Instrucao mal formatada: operador aritmetico nao encontrado, linha " + token);
         }
     }
 
-    public void checkRelatedOperator(Token token) throws Exception{
+    public void checkRelatedOperator(Token token) throws Exception {
         ArrayList<Symbol> operators = new ArrayList<>(Arrays.asList(
                 Symbol.GT,
                 Symbol.GE,
                 Symbol.LT,
                 Symbol.LE,
                 Symbol.EQ,
-                Symbol.NE
-        ));
+                Symbol.NE));
 
         if (!operators.contains(token.getType())) {
             throw new Exception("Instrucao mal formatada: operador relacional nao encontrado, linha " + token);
         }
     }
 
-    public void checkDivideZero(Token token,Token token2) throws Exception {
-        if(token.getType() == Symbol.DIVIDE && this.lexical.getSymbolTable().get("0") == token2.getAddress()){
-            throw new Exception("Divisao por zero negada: " + token);
+    public void checkDivideZero(Token token, Token token2) throws Exception {
+        if (this.lexical.getSymbolTable().get("0") != null) {
+            if (token.getType() == Symbol.DIVIDE && this.lexical.getSymbolTable().get("0") == token2.getAddress()) {
+                throw new Exception("Divisao por zero negada: " + token);
+            }
         }
 
     }
 
-    public void checkNegativeNumber(Token token,Token token2) throws Exception {
+    public void checkNegativeNumber(Token token, Token token2) throws Exception {
         if (token.getType() != Symbol.SUBTRACT) {
             throw new Exception("Simbolo negativo nao encontrado: " + token);
         }
@@ -224,8 +238,7 @@ public class SyntaxAnalysis {
                 Symbol.PRINT,
                 Symbol.GOTO,
                 Symbol.IF,
-                Symbol.END
-        ));
+                Symbol.END));
 
         if (!functions.contains(token.getType())) {
             throw new Exception("Instrucao mal formatada: funcao nao encontrada, linha " + token.getLine());
