@@ -28,8 +28,7 @@ import java.io.FileReader;
  * Classe responsavel pelo compilador da linguagem de programacao
  * SIMPLE 15.01
  */
-public class Compiler
-{
+public class Compiler {
     /**
      * Metodo principal da linguagem de programacao Java
      *
@@ -45,12 +44,11 @@ public class Compiler
 
         BufferedReader source = null;
 
-        try
-        {
-            source = new BufferedReader(new FileReader(new File("E:\\Documentos\\GoogleDrive\\Documentos\\Projetos\\reia\\src\\com\\isonoe\\reia\\assets\\data\\exercicio.txt")));
-        }
-        catch (final Exception exception)
-        {
+        try {
+            String basePath = new File("").getAbsolutePath();
+            System.out.println(basePath);
+            source = new BufferedReader(new FileReader(new File(basePath + "/src/com/isonoe/reia/assets/data/exercicio.txt")));
+        } catch (final Exception exception) {
             exception.printStackTrace();
         }
 
@@ -58,22 +56,24 @@ public class Compiler
 
         final LexicalAnalysis lexical = new LexicalAnalysis();
 
-        if (!lexical.parser(source))
-        {
-            for (String key: lexical.getSymbolTable().keySet())
-            {
+        if (!lexical.parser(source)) {
+            for (String key : lexical.getSymbolTable().keySet()) {
                 System.out.println(lexical.getSymbolTable().get(key) + " : " + key);
             }
 
-            for (Token token: lexical.getTokens())
-            {
+            for (Token token : lexical.getTokens()) {
                 System.out.println(token);
             }
 
+            System.out.println("Fim da análise léxica");
+
+            System.out.println("Início da análise sintática");
             SyntaxAnalysis syntaxAnalysis = new SyntaxAnalysis(lexical);
             syntaxAnalysis.start();
+            System.out.println("Analise sintatica executada.");
+            System.out.println("Programa aceito.");
+
         }
 
-        System.out.println("Fim da análise léxica");
     }
 }
