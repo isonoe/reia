@@ -72,10 +72,11 @@ public class Compiler
 
             System.out.println("Fim da análise léxica");
 
-            System.out.println("Início da análise sintática");
+            System.out.println("\nInício da análise sintática");
 
             SyntaxAnalysis syntaxAnalysis = new SyntaxAnalysis(lexical);
             syntaxAnalysis.start();
+
 
             System.out.println("Fim da análise sintática");
         }

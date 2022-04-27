@@ -31,7 +31,7 @@ public class SyntaxAnalysis {
                 linha.add(token);
             }
 
-            System.out.println(token);
+//            System.out.println(token);
         }
 
         if (linha.size() > 0) {
@@ -65,9 +65,11 @@ public class SyntaxAnalysis {
 
     public void funcEnd(ArrayList<Token> linha) throws Exception {
 
-        if (linha.size() != 2) {
+        if (linha.size() != 3) {
             throw new Exception("Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
         }
+
+        checkETX(linha.get(2));
 
     }
 
@@ -127,6 +129,12 @@ public class SyntaxAnalysis {
             this.checkNegativeNumber(linha.get(4),linha.get(5));
         }else if(linha.size() == 7){
             this.checkAritmeticExpression(linha.get(4),linha.get(5),linha.get(6));
+        }
+    }
+
+    public void checkETX(Token token) throws Exception {
+        if (token.getType() != Symbol.ETX) {
+            throw new Exception("A instrucao end não tem nenhum parametro, apenas fim do arquivo: " + token);
         }
     }
 
@@ -197,9 +205,12 @@ public class SyntaxAnalysis {
     }
 
     public void checkDivideZero(Token token,Token token2) throws Exception {
-        if(token.getType() == Symbol.DIVIDE && this.lexical.getSymbolTable().get("0") == token2.getAddress()){
-            throw new Exception("Divisao por zero negada: " + token);
+        if (this.lexical.getSymbolTable().get("0") != null){
+            if(token.getType() == Symbol.DIVIDE && this.lexical.getSymbolTable().get("0") == token2.getAddress()){
+                throw new Exception("Divisao por zero negada: " + token);
+            }
         }
+
 
     }
 
