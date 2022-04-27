@@ -47,7 +47,9 @@ public class Compiler
 
         try
         {
-            source = new BufferedReader(new FileReader(new File("/Users/alrightadtech/IdeaProjects/reia/src/com/isonoe/reia/assets/data/exercicio.txt")));
+            String basePath = new File("").getAbsolutePath();
+            System.out.println(basePath);
+            source = new BufferedReader(new FileReader(new File(basePath + "/src/com/isonoe/reia/assets/data/exercicio.txt")));
         }
         catch (final Exception exception)
         {

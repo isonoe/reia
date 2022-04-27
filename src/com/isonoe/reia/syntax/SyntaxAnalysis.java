@@ -65,8 +65,8 @@ public class SyntaxAnalysis {
 
     public void funcEnd(ArrayList<Token> linha) throws Exception {
 
-        if (linha.size() != 2) {
-            throw new Exception("Instrucao Input mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+        if (linha.size() != 3) {
+            throw new Exception("Instrucao end mal formatada: linha " + linha.get(0).getLine() + ". padrao: <endereco> end");
         }
 
     }
@@ -83,7 +83,7 @@ public class SyntaxAnalysis {
     public void funcGoto(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Go To mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+            throw new Exception("Instrucao Go To mal formatada: linha " + linha.get(0).getLine() + ". padrao: goto <endereco>");
         }
 
         checkCte(linha.get(2));
@@ -92,7 +92,7 @@ public class SyntaxAnalysis {
     public void funcPrint(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 3) {
-            throw new Exception("Instrucao Print mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+            throw new Exception("Instrucao Print mal formatada: linha " + linha.get(0).getLine() + ". padrao: print <variable>");
         }
 
         checkVariavel(linha.get(2));
@@ -101,7 +101,7 @@ public class SyntaxAnalysis {
     public void funcIf(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() != 7) {
-            throw new Exception("Instrucao If mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+            throw new Exception("Instrucao If mal formatada: linha " + linha.get(0).getLine() + ". padrao: if expressao_boleana goto <endereco>");
         }
 
         checkVariavelOuCte(linha.get(2));
@@ -115,7 +115,7 @@ public class SyntaxAnalysis {
     public void funcLet(ArrayList<Token> linha) throws Exception {
 
         if (linha.size() < 5 || linha.size() > 7) {
-            throw new Exception("Instrucao Let mal formatada: linha " + linha.get(0).getLine() + ". padrao: input <variable>");
+            throw new Exception("Instrucao Let mal formatada: linha " + linha.get(0).getLine() + ". padrao: let <variable> = valor | expressao aritimetica");
         }
 
         checkVariavel(linha.get(2));
