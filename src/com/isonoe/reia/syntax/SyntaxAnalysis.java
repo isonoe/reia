@@ -3,6 +3,7 @@ package com.isonoe.reia.syntax;
 import com.isonoe.reia.lexical.LexicalAnalysis;
 import com.isonoe.reia.lexical.Symbol;
 import com.isonoe.reia.lexical.Token;
+import com.isonoe.reia.utils.TokenUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,24 +20,7 @@ public class SyntaxAnalysis {
 
     public void start() throws Exception {
 
-        ArrayList<ArrayList<Token>> linhas = new ArrayList<>();
-
-        ArrayList<Token> linha = new ArrayList<>();
-
-        for (Token token : lexical.getTokens()) {
-            if (token.getType() == Symbol.LF) {
-                linhas.add(linha);
-                linha = new ArrayList<>();
-            } else {
-                linha.add(token);
-            }
-
-            // System.out.println(token);
-        }
-
-        if (linha.size() > 0) {
-            linhas.add(linha);
-        }
+        ArrayList<ArrayList<Token>> linhas = TokenUtils.getLinesList(lexical.getTokens());
 
         for (ArrayList<Token> novalinha : linhas) {
             Token idToken = novalinha.get(0);

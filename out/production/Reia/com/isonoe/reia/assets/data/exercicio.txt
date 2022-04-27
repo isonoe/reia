@@ -11,4 +11,4 @@
 760 goto 800
 780 let f = -1
 800 print f
-1000 end
+799 end

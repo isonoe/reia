@@ -18,6 +18,7 @@ package com.isonoe.reia;
 
 import com.isonoe.reia.lexical.LexicalAnalysis;
 import com.isonoe.reia.lexical.Token;
+import com.isonoe.reia.semantic.SemanticAnalysis;
 import com.isonoe.reia.syntax.SyntaxAnalysis;
 
 import java.io.BufferedReader;
@@ -75,12 +76,14 @@ public class Compiler
             System.out.println("Fim da análise léxica");
 
             System.out.println("\nInício da análise sintática");
-
             SyntaxAnalysis syntaxAnalysis = new SyntaxAnalysis(lexical);
             syntaxAnalysis.start();
-
-
             System.out.println("Fim da análise sintática");
+
+            System.out.println("\nInício da análise semantica");
+            SemanticAnalysis semanticAnalysis = new SemanticAnalysis(lexical);
+            semanticAnalysis.start();
+            System.out.println("Fim da análise semantica");
         }
 
 
