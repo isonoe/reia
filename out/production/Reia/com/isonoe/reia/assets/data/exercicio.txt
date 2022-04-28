@@ -3,7 +3,7 @@
 200 let f = 2
 250 let t = n
 300 if n < 2 goto 750
-350 let m  = n * 2 
+350 let m  = n * 2
 360 let f = f + m
 400 let n = n - 1
 450 goto 300
@@ -11,4 +11,4 @@
 760 goto 800
 780 let f = -1
 800 print f
-799 end
+1000 end

@@ -30,8 +30,11 @@ public class SemanticAnalysis {
 
         int lastValue = 0;
 
+        Token actualToken = null;
+
         for (ArrayList<Token> novalinha : linhas) {
-            int address = novalinha.get(0).getAddress();
+            actualToken = novalinha.get(0);
+            int address = actualToken.getAddress();
             int value = Integer.valueOf(getKeyFromValue(address));
 
             if (value > lastValue) {
@@ -43,7 +46,7 @@ public class SemanticAnalysis {
         }
 
         if (!isValidOrder) {
-            throw new Exception("Ordem de enderecos invalida.");
+            throw new Exception("Ordem de enderecos invalida. Linha: " + actualToken.getLine());
         }
     }
 
